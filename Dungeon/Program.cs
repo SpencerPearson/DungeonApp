@@ -68,20 +68,22 @@ namespace Dungeon
             //TODO create a loop for finding animal spirit guides (one land one air?)
 
             //TODO create companions to choose from
-            Companion wolf = new Companion("Lobo", 12, 7, 65, 20, 40, 40, Animal.Wolf, null);
-            Companion bear = new Companion("Ben", 7, 4, 60, 40, 85, 85, Animal.Bear, null);
-            Companion deer = new Companion("Elliot", 5, 1, 50, 30, 30, 30, Animal.Deer, null);
-            Companion bison = new Companion("Strongheart", 6, 2, 60, 60, 100, 100, Animal.Bison, null);
-            Companion horse = new Companion("Beau", 4, 1, 30, 90, 50, 50, Animal.Horse, null);
-            Companion mouse = new Companion("Ralph", 0, 0, 0, 100, 5, 5, Animal.Mouse, null);
-            Companion raccoon = new Companion("Eddie", 3, 2, 90, 10, 20, 20, Animal.Raccoon, null);
-            Companion skunk = new Companion("Pepe", 4, 2, 55, 40 ,20, 20, Animal.Skunk, null);
-            repeat: Console.Write("Nine animals now appear before you. In the stillness, you sense a purposeful patience in their demeanor. Some of these animals you may have caught glimpses or signs of in your journey earlier. Others you have not seen or heard until now. They all can aid you in some way, but not all of them will necessarily follow you. That is why you must choose your companions wisely.\n\nDo you understand? Y/N:");
+            Companion wolf = new Companion("Lobo", 12, 7, 65, 20, 40, 40, Animal.Wolf, null, "A ferocious wolf with a powerful attack.");
+            Companion bear = new Companion("Ben", 7, 4, 60, 40, 85, 85, Animal.Bear, null, "A great bear with a large health pool.");
+            Companion deer = new Companion("Elliot", 5, 1, 50, 30, 30, 30, Animal.Deer, null, "A swift deer, he can help you escape if things look rough.");
+            Companion bison = new Companion("Strongheart", 6, 2, 60, 60, 100, 100, Animal.Bison, null, "A mighty bison, low attack but his health pool is massive.");
+            Companion horse = new Companion("Beau", 4, 1, 30, 90, 50, 50, Animal.Horse, null, "A sturdy steed, he is fantastic at blocking enemy attacks.");
+            Companion mouse = new Companion("Ralph", 0, 0, 0, 100, 5, 5, Animal.Mouse, null, "A tiny mouse with an uncanny ability to dodge attacks and distract the enemy.");
+            Companion raccoon = new Companion("Eddie", 3, 2, 90, 10, 20, 20, Animal.Raccoon, null, "A cheeky raccoon with high accuracy and a low block chance.");
+            Companion skunk = new Companion("Pepe", 4, 2, 55, 40 ,20, 20, Animal.Skunk, null, "This skunk is not a powerhouse but he can sometimes stink the enemy into submission.");
+            Companion[] companions = { wolf, bear, deer, bison, horse, mouse, raccoon, skunk };
+            int companionChoice;
+        repeat: Console.Write("\tEight animals now appear before you. In the stillness, you sense a purposeful patience in their demeanor.\n Some of these animals you may have caught glimpses or signs of in your journey earlier. Others you have not\n seen or heard until now. They all can aid you in some way, but not all of them will necessarily follow you.\n That is why you must choose your companions wisely.\n\nDo you understand? Y/N:");
             tryAgain: string response = Console.ReadLine().ToUpper();
 
             if (response == "Y" || response == "YES")
             {
-             
+                
             }
             else if (response == "N" || response == "NO")
             {
@@ -95,13 +97,41 @@ namespace Dungeon
                 Console.Write("Invalid input. Did you understand the instructions? Y/N: ");
                 goto tryAgain;
             }
-            chooseAnimal: string userNum = Console.ReadLine();
+            chooseAnimal: Console.WriteLine("Choose your companion:\n" +
+                                            "1) Lobo - wolf\n" +
+                                            "2) Ben - bear\n" +
+                                            "3) Elliott - deer\n" +
+                                            "4) Strongheart - bison\n" +
+                                            "5) Beau - horse\n" +
+                                            "6) Ralph - mouse\n" +
+                                            "7) Eddie - raccoon\n" +
+                                            "8) Pepe - skunk\n");
+
+            string userNum = Console.ReadLine();
             if (userNum == "1" || userNum == "2" || userNum == "3" || userNum == "4" || userNum == "5" || userNum == "6" || userNum == "7" || userNum == "8")
             {
-                int companionChoice = int.Parse(userNum);
-                Companion[] companions = { wolf, bear, deer, bison, horse, mouse, raccoon, skunk, };
+                Console.Clear();
+                companionChoice = int.Parse(userNum);
+                companionChoice--;
                 Character companion = companions[companionChoice];
-
+                Console.WriteLine(companion);
+                confirmChoice: Console.Write($"\nAre you sure you want to choose {companion.Name} as your companion?\nY/N:");
+                string confirm = Console.ReadLine().ToUpper();
+                if (confirm == "Y" || confirm == "YES")
+                {
+                    Console.Clear();
+                }
+                else if (confirm == "N" || confirm == "NO")
+                {
+                    Console.Clear();
+                    goto chooseAnimal;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("I need a yes or no answer.");
+                    goto confirmChoice;
+                }
             }
             else
             {
@@ -119,7 +149,7 @@ namespace Dungeon
                 Dragon d1 = new Dragon();
                 Dragon d2 = new Dragon("Toothless", 25, 25, 40, 10, 1, 12, "This is one bad dragon!", true);
                 Orc o1 = new Orc();
-                Orc o2 = new Orc("gruk", 30, 30, 45, 20, 5, 7, "This brutish Orc is uglier than your average Orc. Which is saying something!", true);
+                Orc o2 = new Orc("gruk", 30, 30, 45, 20, 5, 7, "This brutish Orc is uglier than your average Orc, which is saying something!", true);
                 Specter s1 = new Specter();
                 Specter s2 = new Specter("Bloody Bob", 20, 20, 50, 30, 2, 9, "A bloodthirsty specter darts toward you in a blind rage.", true);
 
@@ -143,7 +173,7 @@ namespace Dungeon
                         "R) Run Away\n" +
                         "P) Player Info\n" +
                         "M) Monster Info\n" +
-                        "C) Companion Info" +
+                        "C) Companion Info\n" +
                         "X) Exit\n\n" +
                         $"Score: {score}\n\n");
                     #endregion
@@ -156,7 +186,8 @@ namespace Dungeon
                     Console.Clear();
 
                     //TODO need to make program work without statement below
-                    Companion companion = wolf;
+                    Companion companion = companions[companionChoice];
+
                     //TODO 9. Build out the switch for userChoice
                     #region Game Experience - Switch
                     switch (userChoice)
@@ -172,12 +203,25 @@ namespace Dungeon
                                 Console.WriteLine("\nYou killed {0}! The spirit you freed from the monster restores some of your health.\n", monster.Name);
                                 Console.ResetColor();
                                 player.Life += monster.MaxLife / 4;
-                                
-                                //get a new room and monster
-                                if (monstersKilled < 10 )
-                                reload = true;
                                 score += monster.MaxLife - (player.MaxLife - player.Life);
                                 monstersKilled++;
+                                reload = true;
+                                //get a new room and monster
+                                if (monstersKilled < 10)
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"" +
+                                            $"\tAs you deal the final blow to {monster.Name}, {companion.Name} seems to leap in\n triumph at your accomplishment. The monsters have been vanquished, and their tortured\n souls are now free. As you meet {companion.Name}'s eyes, a great sense of confidence\n and strength rises up within you. You know you made the right choice, and that the\n {companion.Animal} is truly your animal guide." +
+                                            $"\n\n\tYou snap awake in your bed, and glance at the alarm clock on the nightstand.\n It's 3:33 a.m. The dream of the forest was so vivid, so incredibly real. You close your eyes, and still can clearly see the approving gaze\n of {companion.Name}. You\n realize that image will be burned into your memory, and any time you need help you'll\n be able to call upon the spirit of the {companion.Animal} to guide you in the waking world. You roll over and drift back to sleep, and as you drift away a calming sense\n of security washes over you. All is well.\n\n" +
+                                            $"Final score: {score}\n" +
+                                            $"Monsters killed: {monstersKilled}");
+                                    exit = true;
+                                    reload = false;
+                                }
+
 
                             }
                             break;
@@ -215,14 +259,20 @@ namespace Dungeon
                     #endregion
                     if (player.Life <= 0)
                     {
-                        Console.WriteLine("As the light\n");
+                    Console.WriteLine($"" +
+                        $"\tAs the light fades, you turn to lock eyes with {companion.Name}. He looks sad,\n but stoic as your life fades away. You both gave your best. Perhaps the\n {companion.Animal} was not your proper animal guide." +
+                        $"\n\n\tYou snap awake in your bed, and glance at the alarm clock on the nightstand.\n It's 3:33 a.m. The dream of the forest was so vivid, so incredibly real. You lift your\n shirt and check your body for the wounds that just claimed you, just to make sure\n you aren't still bleeding out. You're fine, of course. Even still, the image of{monster.Name}\n hovering over you, the look in {companion.Name}'s eyes as you drew\n your last breath... You can feel the image is going to stick with you for quite some\n time." +
+                        $"\n\nMaybe you'll be able to settle back down to sleep, and one day again become the Forest Walker.\n\n" +
+                        $"Final score: {score}\n" +
+                        $"Monsters killed: {monstersKilled}");
                         exit = true;
                     }
-
+                    
                     //TODO 14. Handle Player Life
 
                 } while (!reload && !exit);
 
+                
             } while (!exit);//while exit is NOT TRUE keep in the loop
         }//end Main()
         //TODO 15. Create GetRoom() and plug it in to TODO 3.

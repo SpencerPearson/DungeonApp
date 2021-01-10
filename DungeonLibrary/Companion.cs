@@ -13,6 +13,7 @@ namespace DungeonLibrary
         //props
         public Animal Animal { get; set; }
         public Item EquippedItem { get; set; }
+        public string Description { get; set; }
         public int MaxDamage { get; set; }
         public int MinDamage
         {
@@ -31,20 +32,27 @@ namespace DungeonLibrary
             }
         }
         //ctors
-        public Companion(string name, int maxDamage, int minDamage, int hitChance, int block, int life, int maxLife, Animal animal, Item equippedItem)
+        public Companion(string name, int maxDamage, int minDamage, int hitChance, int block, int life, int maxLife, Animal animal, Item equippedItem, string descriptrion)
         {
+            MaxLife = maxLife;
             Name = name;
             MaxDamage = maxDamage;
             MinDamage = minDamage;
             HitChance = hitChance;
             Block = block;
-            Life = life;
-            MaxLife = maxLife;
             Animal = animal;
             EquippedItem = equippedItem;
+            Description = descriptrion;
+            Life = life;
         }
 
         //methods
+
+        public override string ToString()
+        {
+            return string.Format("\n-=-= COMPANION =-=-\n" +
+                "{0} - {1}\nLife: {2} of {3}\nDamage: {4} to {5}\nBlock: {6}\nDescription:\n{7}", Name, Animal, Life, MaxLife, MinDamage, MaxDamage, Block, Description);
+        }
 
         public override int CalcDamage()
         {

@@ -52,7 +52,7 @@ namespace DungeonLibrary
         public override string ToString()
         {
             return string.Format("\n-=-= MONSTER =-=-\n" +
-                "{0}\nLife: {1} of {2}\nDamage: {3} of {4}\nBlock: {5}\nDescription:\n{6}", Name, Life, MaxLife, MinDamage, MaxDamage, Block, Description);
+                "{0}\nLife: {1} of {2}\nDamage: {3} to {4}\nBlock: {5}\nDescription:\n{6}", Name, Life, MaxLife, MinDamage, MaxDamage, Block, Description);
         }//end ToString()
 
         //We are overriding the CalcDamage to use properties MinDamage and MaxDamage
